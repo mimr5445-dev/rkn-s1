@@ -1,29 +1,30 @@
 # حالة الرفع | Upload status
 
 ## تم رفعه بنجاح ✓
-- `engine/core.js`, `player.js`, `styles.js`
-- `render.mjs`
-- `audio/dsp.py`, `mix.py`
-- `examples/.../01_cafe.js`, `02_orbit3d.js`, `03_explain.js`, `cafe.js`, `lab.js`
-- جميع الـ skills والأدوات والمراجع الأساسية
 
-## ما زال ناقصاً على GitHub
-- `engine/fx2d.js` (~16KB)
-- `engine/ui2d.js` (~13KB)
-- `engine/three-kit.js` (~16KB)
-- `engine/rig2d.js` (~29KB)
-- `audio/music.py` (~12KB)
-- `audio/sfx.py` (~15KB)
-- `references/style-bible.md` (~13KB)
+### Engine
+- `core.js`, `player.js`, `styles.js`, `ui2d.js`, `fx2d.js`
 
-## المصدر الكامل متوفر الآن
-الملف `rkn-s1-full-source.tar.gz` في مجلد المشروع (Drive) يحتوي على **كل** الملفات بما فيها الناقصة.
+### Audio
+- `dsp.py`, `mix.py`, `music.py`
+
+### Renderer & tools
+- `render.mjs`, tools/*, examples/*, package.json, player.html
+
+### Docs
+- `style-bible.md`, install.md, engine-api.md, skill files
+
+## ما زال ناقصاً (3 ملفات فقط)
+- `engine/rig2d.js` (~29KB) — محرك الشخصيات Stick Figure
+- `engine/three-kit.js` (~16KB) — مشاهد 3D
+- `audio/sfx.py` (~15KB) — مكتبة المؤثرات الصوتية
+
+## المصدر الكامل
+`rkn-s1-full-source.tar.gz` في مجلد المشروع يحتوي على كل شيء.
 
 ```bash
-# فك الضغط واستخدام الاستوديو مباشرة
 tar xzf rkn-s1-full-source.tar.gz
 cp -r skills/make-2d-video/kit aitrends-2d-studio
-cd aitrends-2d-studio && npm install && npx playwright install chromium
 ```
 
 المستودع: https://github.com/mimr5445-dev/rkn-s1
