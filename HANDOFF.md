@@ -5,6 +5,8 @@ Read this first if you are a new model or a new contributor.
 ## 1. Read in this order
 1. `project-memory/ROADMAP.md`: what to build next and why.
 2. `project-memory/CURRENT_STATE.md`: what works and what is open.
+   Also read `project-memory/ACHIEVEMENTS.md` (what was delivered) and `project-memory/LESSONS.md` (rules from past mistakes).
+   Also read `project-memory/ACHIEVEMENTS.md` (what was delivered) and `project-memory/LESSONS.md` (rules from past mistakes).
 3. `project-memory/DECISIONS/`: DEC-001 (originals not binding), DEC-002 (scope), DEC-003 (stack).
 4. `project-memory/INCIDENTS/INCIDENT_INDEX.md`: known problems and their status.
 5. `docs/design/`: the design for each system. Read the design before changing code.
