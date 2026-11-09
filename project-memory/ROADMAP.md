@@ -20,7 +20,7 @@ Last updated: 2026-11-09. Owner: project owner. Architect of record: see HANDOFF
 
 ## Short term (next 3 to 4 milestones)
 
-### S1. M2b: body detail and expression
+### S1. M2b: body detail and expression (DONE, see CURRENT_STATE)
 - **Goal:** hands, feet, and a face that can express emotion.
 - **Deliverables:** hand and foot shapes that attach to the wrist and ankle. Eyes that blink. Brows and mouth shapes (neutral, smile, frown, open).
 - **Acceptance:** identity hash unchanged. Expression changes do not change the face colour. A test checks that each expression renders differently and deterministically. Visual check of a 4-expression sheet.
