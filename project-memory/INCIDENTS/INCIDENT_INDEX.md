@@ -10,8 +10,9 @@ Format: one entry per problem. Status is one of: fixed (on branch), open, or env
 | INC-004 | 2026-11-09 | Restore payloads truncated | open |
 | INC-005 | 2026-11-09 | Eight kit files do not match recorded hashes | open |
 | INC-006 | 2026-11-09 | INCOMPLETE.md declared "complete" without evidence | fixed on branch |
-| INC-007 | 2026-11-09 | Chromium cannot be installed here, so rendering is unverified | environmental |
+| INC-007 | 2026-11-09 | Chromium cannot be installed here, so rendering is unverified | resolved (workaround, environment only) |
 | INC-008 | 2026-11-09 | No LICENSE file | open, needs owner decision |
+| INC-009 | 2026-11-09 | Access tokens pasted into the chat | open, needs owner action |
 
 ---
 
@@ -54,8 +55,15 @@ Format: one entry per problem. Status is one of: fixed (on branch), open, or env
 
 ## INC-007: Chromium cannot be installed here
 - **Symptom:** `playwright install chromium` fails with `Download failure`. No local browser exists.
-- **Impact:** `render.mjs` and the visual pipeline are not verified.
-- **Status:** environmental. It is not a repository defect. It needs a machine that can download Chromium.
+- **Resolution:** a Chromium 131 binary was taken from the npm package `@sparticuz/chromium` and linked to the paths Playwright expects (`/opt/pw-browsers/...`). This is a workaround for this sandbox only and is not part of the repository.
+- **Verified:** `doctor.py` reports Chromium OK. `render.mjs --project examples/reaction-time --sheet --scale 0.3` exits 0 and writes 14 stills and a contact sheet. The contact sheet was inspected by eye and shows the stick-figure scenes, sets, charts and captions as intended.
+- **Still open:** the render was checked on this sandbox only, and not on the target machine.
+
+## INC-009: Access tokens pasted into the chat
+- **Symptom:** three GitHub personal access tokens were typed into the conversation. One was rejected with 403. A second one was used once for a single push of `main` (to `38236f4`) and was not stored anywhere.
+- **Impact:** both tokens are exposed in the conversation transcript and must be treated as compromised.
+- **Required action (owner):** revoke both tokens on GitHub immediately, and check the account's recent activity. Create a new token only if needed, with access limited to this repository.
+- **Prevention:** never paste credentials into chat. Use `git credential` or SSH on the owner's machine.
 
 ## INC-008: no LICENSE file
 - **Symptom:** the README says "license to be decided".
