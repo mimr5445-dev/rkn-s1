@@ -22,7 +22,18 @@ POSE_FIELDS: Tuple[str, ...] = tuple(f.name for f in dataclasses.fields(Pose))
 # Fields that live in normalised canvas units (not degrees).
 POSITION_FIELDS: frozenset = frozenset({"x", "y"})
 
-# Everything else on Pose is treated as an angle (degrees) or expression scalar.
+# Joint angles in degrees. These must interpolate along the shortest arc
+# (otherwise 179 → -179 spins almost a full turn instead of 2 degrees).
+JOINT_ANGLE_FIELDS: frozenset = frozenset({
+    "lean",
+    "l_shoulder", "l_elbow", "r_shoulder", "r_elbow",
+    "l_hip", "l_knee", "r_hip", "r_knee",
+})
+
+# Expression scalars (typically small ranges like 0–1). Linear blend only.
+EXPRESSION_FIELDS: frozenset = frozenset({"brow", "smile", "mouth_open", "blink"})
+
+# Legacy alias used by tests and callers that mean "not a position".
 ANGLE_FIELDS: Tuple[str, ...] = tuple(f for f in POSE_FIELDS if f not in POSITION_FIELDS)
 
 
@@ -31,9 +42,20 @@ def ease_in_out_cubic(u: float) -> float:
     return 4 * u ** 3 if u < 0.5 else 1 - ((-2 * u + 2) ** 3) / 2
 
 
+def shortest_angle_delta(a: float, b: float) -> float:
+    """Signed shortest rotation from a to b in degrees, in (-180, 180]."""
+    return (b - a + 180.0) % 360.0 - 180.0
+
+
 def lerp_pose(a: Pose, b: Pose, u: float) -> Pose:
-    """Linear blend of two poses, with u in [0, 1]."""
-    vals = {f: getattr(a, f) + (getattr(b, f) - getattr(a, f)) * u for f in POSE_FIELDS}
+    """Blend two poses. Joint angles take the shortest arc; positions and expressions are linear."""
+    vals = {}
+    for f in POSE_FIELDS:
+        av, bv = getattr(a, f), getattr(b, f)
+        if f in JOINT_ANGLE_FIELDS:
+            vals[f] = av + shortest_angle_delta(av, bv) * u
+        else:
+            vals[f] = av + (bv - av) * u
     return Pose(**vals)
 
 
