@@ -62,8 +62,42 @@ def env_exp(n, decay=0.3):
     return np.exp(-t_axis(n) / max(decay, 1e-6)).astype(np.float32)
 
 
-def sine(n, f, phase=0.0):
-    return np.sin(2 * np.pi * f * t_axis(n) + phase).astype(np.float32)
+def _cycles(f, n):
+    """Cumulative cycle count for a scalar or per-sample frequency array (glides stay phase-continuous)."""
+    if np.ndim(f) == 0:
+        return float(f) * t_axis(n)
+    return np.cumsum(np.broadcast_to(np.asarray(f, dtype=np.float64), (n,))) / SR
+
+
+def sine(f, n, phase=0.0):
+    """Sine wave. Call order is (frequency, n_samples), as used by sfx.py and music.py.
+    `f` may be a scalar or an array of length n."""
+    return np.sin(2 * np.pi * _cycles(f, n) + phase).astype(np.float32)
+
+
+def osc(wave, f, n, phase=0.0):
+    """Band-limited-enough oscillator for scalar or per-sample frequency. wave: sine | saw | square | triangle."""
+    c = _cycles(f, n) + phase / (2 * np.pi)
+    if wave == "sine":
+        return np.sin(2 * np.pi * c).astype(np.float32)
+    s = 2 * (c - np.floor(c + 0.5))  # naive saw in [-1, 1)
+    if wave == "saw":
+        return s.astype(np.float32)
+    if wave == "square":
+        return np.where(s > 0, 1.0, -1.0).astype(np.float32)
+    if wave in ("triangle", "tri"):  # music.py passes the short alias "tri"
+        return (2 * np.abs(s) - 1).astype(np.float32)
+    raise ValueError(f"unknown wave: {wave}")
+
+
+def expdec(n, tau):
+    """Exponential decay over n samples, time constant tau in seconds."""
+    return np.exp(-t_axis(n) / max(tau, 1e-6)).astype(np.float32)
+
+
+def midi_hz(m):
+    """MIDI note number (scalar or array) to Hz, A4 = 69 = 440 Hz."""
+    return 440.0 * 2.0 ** ((np.asarray(m, dtype=np.float64) - 69) / 12)
 
 
 def saw(n, f):
