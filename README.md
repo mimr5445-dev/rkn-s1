@@ -1,4 +1,4 @@
-# rkn-s1 — aiTrends 2D Studio
+# rkn-s1 — RKN-S1 Studio
 
 > تحويل أي تعليق صوتي إلى فيديو متحرك سينمائي بأسلوب Stick Figure
 
@@ -71,8 +71,8 @@ git clone https://github.com/mimr5445-dev/rkn-s1.git
 cd rkn-s1
 
 # 2. نسخ الاستوديو إلى مجلد العمل
-cp -r skills/make-2d-video/kit aitrends-2d-studio
-cd aitrends-2d-studio
+cp -r skills/make-2d-video/kit rkn-s1-studio
+cd rkn-s1-studio
 
 # 3. تثبيت الاعتماديات
 npm install
@@ -111,7 +111,7 @@ node render.mjs --project examples/reaction-time --sheet --scale 0.3
 ## الحالة | Status
 
 - الإصدار: **0.1.0**
-- المصدر الأصلي: إضافة Claude Plugin من aiTrends
+- المصدر: نسخة أولى مجانية بدون ترخيص خاص، ضمن هذا المستودع (DEC-006)
 - جاري التطوير والتحسين على هذا المستودع
 
 ---

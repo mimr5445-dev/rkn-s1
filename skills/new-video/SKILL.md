@@ -3,17 +3,17 @@ name: new-video
 description: >
   This skill should be used when the user runs /new-video or asks to "start a new 2D video", "set up a video
   from this voiceover", "timestamp my voiceover", "transcribe and time my narration", "import my SRT/timestamped
-  script", or "plan the shots for my script" in the aiTrends 2D Studio. It covers intake, installing or checking
+  script", or "plan the shots for my script" in the RKN-S1 Studio. It covers intake, installing or checking
   the studio, creating the project, building word-level timestamps (Whisper or the user's timestamped script),
   and the story breakdown with the shot list.
 metadata:
   version: "0.1.0"
-  author: aiTrends
+  author: RKN-S1
 ---
 
 # /new-video: intake → install → timeline → story breakdown
 
-This command covers stages 1–4 of the aiTrends 2D Studio pipeline. Shared references live in the sibling skill folder `../make-2d-video/references/` (relative to this skill's base directory), and the studio kit lives in `../make-2d-video/kit/`.
+This command covers stages 1–4 of the RKN-S1 Studio pipeline. Shared references live in the sibling skill folder `../make-2d-video/references/` (relative to this skill's base directory), and the studio kit lives in `../make-2d-video/kit/`.
 
 ## 1. Intake
 Ask once (AskUserQuestion when available), skipping anything the user already said:
@@ -28,9 +28,9 @@ Ask once (AskUserQuestion when available), skipping anything the user already sa
 Defaults: 16:9, 1080p, generated music + SFX.
 
 ## 2. Studio
-If `aitrends-2d-studio/render.mjs` doesn't exist in the workspace, follow `../make-2d-video/references/install.md` in full. Otherwise run `python tools/doctor.py` inside it and fix anything reported.
+If `rkn-s1-studio/render.mjs` doesn't exist in the workspace, follow `../make-2d-video/references/install.md` in full. Otherwise run `python tools/doctor.py` inside it and fix anything reported.
 
-## 3. Project and timestamps (inside `aitrends-2d-studio/`)
+## 3. Project and timestamps (inside `rkn-s1-studio/`)
 ```bash
 python tools/new_project.py --name <slug> --voice "<voiceover>" [--script "<script>"] --aspect <16:9|9:16> --resolution <res> --title "<title>" [--captions]
 ```

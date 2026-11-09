@@ -29,8 +29,8 @@ playwright-report/
 Thumbs.db
 
 # Project runtime
-aitrends-2d-studio/projects/*/build/
-aitrends-2d-studio/projects/*/out/
+rkn-s1-studio/projects/*/build/
+rkn-s1-studio/projects/*/out/
 *.log
 
 # Whisper models (large)

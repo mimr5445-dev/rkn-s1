@@ -1,4 +1,4 @@
-# Style bible: the aiTrends 2D look
+# Style bible: the RKN-S1 2D look
 
 Follow this closely. It is the only description of the target look; no reference images are available.
 

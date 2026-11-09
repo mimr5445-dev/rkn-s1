@@ -3,17 +3,17 @@ name: video-sound
 description: >
   This skill should be used when the user runs /video-sound or asks to "add music", "add sound effects",
   "design the sound", "change the music mood", "use my own music", "the music is too loud/quiet", "remix the audio",
-  or "redo the soundtrack" for an aiTrends 2D Studio video. It plans mood-based generated music, places SFX and
+  or "redo the soundtrack" for an RKN-S1 Studio video. It plans mood-based generated music, places SFX and
   ambience cues on the shot list, mixes them under the voiceover with ducking and loudness normalisation, and muxes
   the final MP4.
 metadata:
   version: "0.1.0"
-  author: aiTrends
+  author: RKN-S1
 ---
 
 # /video-sound: music, SFX, ambience and the final mix
 
-Work inside `aitrends-2d-studio/` on the active project. Read `../make-2d-video/references/sound-design.md` (relative to this skill's base directory) first.
+Work inside `rkn-s1-studio/` on the active project. Read `../make-2d-video/references/sound-design.md` (relative to this skill's base directory) first.
 
 ## 1. Music plan
 - Read `story/bible.md` and the shot list, then write `story/shots.json` → `"music"`: contiguous sections `{start, end, mood, intensity}` that change at story turns (title card, discovery, danger, climax, resolution, explanation), typically every 30–90 s.

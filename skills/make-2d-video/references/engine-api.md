@@ -2,10 +2,10 @@
 
 ## Folder layout
 ```
-aitrends-2d-studio/
+rkn-s1-studio/
   render.mjs  player.html  package.json
   engine/   core.js styles.js rig2d.js fx2d.js ui2d.js three-kit.js player.js
-  tools/    doctor.py verify_kit.py new_project.py transcribe.py parse_script.py beats.py common.py
+  tools/    doctor.py new_project.py transcribe.py parse_script.py beats.py common.py
   audio/    dsp.py sfx.py music.py mix.py
   examples/reaction-time/   (reference project: scenes + story)
   projects/<slug>/

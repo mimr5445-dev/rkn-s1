@@ -3,16 +3,16 @@ name: render-video
 description: >
   This skill should be used when the user runs /render-video or asks to "build the scenes", "check the shots",
   "show me a contact sheet", "preview the video", "render the video", "render in 4K / 9:16", "re-render after a fix",
-  or "export the final MP4" for an aiTrends 2D Studio project. It writes or repairs shot code in batches with
+  or "export the final MP4" for an RKN-S1 Studio project. It writes or repairs shot code in batches with
   contact-sheet QC, makes preview clips, runs the full frame-by-frame render, and muxes the final video with sound.
 metadata:
   version: "0.1.0"
-  author: aiTrends
+  author: RKN-S1
 ---
 
 # /render-video: build, QC, preview and final render
 
-Work inside `aitrends-2d-studio/` on the active project (`projects/<slug>`; if several exist, ask which one). Shared references are in `../make-2d-video/references/` relative to this skill's base directory. Read `engine-api.md`, `style-bible.md` and `render-qc.md` before writing or fixing scenes.
+Work inside `rkn-s1-studio/` on the active project (`projects/<slug>`; if several exist, ask which one). Shared references are in `../make-2d-video/references/` relative to this skill's base directory. Read `engine-api.md`, `style-bible.md` and `render-qc.md` before writing or fixing scenes.
 
 ## 1. Build or repair shots (batches of 8–12)
 - List what's missing: `node render.mjs --project projects/<slug> --sheet --scale 0.4`. The console lists MISSING shots and shot errors, and `build/sheets/sheet_XX.png` shows one still per shot.

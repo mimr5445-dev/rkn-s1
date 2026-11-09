@@ -3,16 +3,16 @@ name: video-styles
 description: >
   This skill should be used when the user runs /video-styles or asks to "show me style options", "compare the looks",
   "pick a visual style", "make it warmer / darker / more neon", "create a custom style", or "change the colour grade"
-  for an aiTrends 2D Studio video. It renders the same shots of the user's story in five preset styles
+  for an RKN-S1 Studio video. It renders the same shots of the user's story in five preset styles
   (dusk, midnight, golden, neon, storybook) as a comparison grid, records the choice, and builds custom styles.
 metadata:
   version: "0.1.0"
-  author: aiTrends
+  author: RKN-S1
 ---
 
 # /video-styles: render style options and lock the look
 
-Work inside `aitrends-2d-studio/` on the active project (`projects/<slug>`; if several exist, ask which one). Shared references are in `../make-2d-video/references/` relative to this skill's base directory.
+Work inside `rkn-s1-studio/` on the active project (`projects/<slug>`; if several exist, ask which one). Shared references are in `../make-2d-video/references/` relative to this skill's base directory.
 
 ## 1. Make sure there is something representative to show
 The grid uses the user's own shots, never the bundled example. If the project has fewer than 3 finished shots, first build (following `../make-2d-video/references/style-bible.md` and `engine-api.md`):
@@ -41,6 +41,6 @@ Ask which they want (AskUserQuestion when available).
   - `grade`: `lift` [r,g,b] tints the shadows (raise b for cooler shadows), `gain` [r,g,b] tints the highlights (raise r for warmer), `gamma` [r,g,b], `sat`, `contrast`, `vignette`, `grain`, `bloom` (3D),
   - `ui` colours (gold, accent, cream, blueprint) and `rimWidth`.
 
-  Re-render with `--styles <newid>,<closest preset> --at …` so the user can compare, iterate until they're happy, then set it in config.json. `tools/verify_kit.py` will now report `engine/styles.js` as changed; that's expected.
+  Re-render with `--styles <newid>,<closest preset> --at …` so the user can compare, iterate until they're happy, then set it in config.json.
 
 Scenes only follow a style switch if they take colours from `mood()`/`S()`. If one shot ignores the style, find the hard-coded colours in it and replace them.
