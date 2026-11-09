@@ -1,36 +1,38 @@
-# DEC-002: Studio v2 scope
+# DEC-002: New product scope (revised)
 
 - **Date:** 2026-11-09
-- **Decided by:** project owner (chose: new version of the studio, with skills added and continuous development)
-- **Open for confirmation:** the owner's reply was "1 2". This record reads it as option 1, with option 2's idea of reusing only parts of the old work allowed where useful. Confirm or correct.
+- **Decided by:** project owner
+- **Revision:** the first version of this record read the owner's reply as "new version of the same studio". The owner clarified that the choice is option 2: a new product built from scratch. Only the principle of character and style consistency carries over. Nothing in the old library is reused as a base.
 
-## What v2 is
-A studio that turns a voiceover into a stick-figure video. Every frame is drawn by code (no image or video generation models). Same concept as v1, rebuilt as a new version. Original files are a reference for ideas only (DEC-001).
+## What the product is
+A video production product whose main strength is **consistency of characters and visual style across every scene**. The team builds its own library, which is large and not minimal:
 
-## Core requirements
-1. Input: a voiceover, optionally with a script. Output: a finished video with music and sound effects.
-2. Frames are rendered by code and are reproducible: the same input gives the same output.
-3. Skills: new capabilities (a visual style, a scene type, a sound pack, a character, an effect) are added as self-contained skills, without editing the core. Each skill declares what it provides and what it needs.
-4. Continuous development: every change is tested, every problem is an incident with a root cause, and every release has a changelog entry.
+- Characters, with their poses and movements.
+- Locations and backgrounds.
+- Visual styles.
+- Cinematic motion with physics-based movement.
+- Professional sound: music and effects that are polished, not harsh or annoying.
+- Icons and graphic elements.
 
-## Non-goals (for now)
-- Real-time or interactive editing.
-- Generative image or video models.
-- Any new packaging beyond the existing Claude plugin format, until the core works.
+Skills extend the library over time. A new character, location, style, sound pack or effect is added as a self-contained skill, without changing the core.
 
-## Success criteria for v2 core (milestone M1)
-- A reference project renders end-to-end from a voiceover to an MP4, from a single command.
-- The render is deterministic: two runs produce identical frames (checked by hash).
+## Principles
+1. **Consistency first.** A character keeps the same look, proportions and style in every shot. This is tested, not assumed.
+2. **Original library.** All assets are built by the team. Nothing from the old project is reused as an asset.
+3. **Continuous development.** Every change is tested. Every problem is an incident with a root cause. Every release has a changelog entry.
+
+## Decisions still needed (not assumed)
+1. **Rendering method.** The old product rendered every frame by code. Should the new one keep that, or use another method? This affects the consistency approach directly, so it must be decided before design.
+2. **Visual form of characters.** Stick figures or a richer character style?
+3. **First milestone.** Which part to build first: the character system, the sound library, or the motion system.
+4. **Language and stack.** The old code is a mix of JavaScript and Python.
+5. **License** (INC-008).
+
+## Success criteria for the first milestone (M1)
+- One character is defined once and renders consistently across at least three shots with different poses and backgrounds, as proven by a test.
 - A new skill can be added without changing core code, and a test proves it.
-- All tests pass on `main`, and every release has a changelog entry.
+- All tests pass, and the change is documented.
 
-## Milestones
-- **M0 (done):** diagnosis, memory, audio fixes, render verified on v1.
-- **M1:** core v2: skill loader, deterministic renderer, end-to-end test on a reference project.
-- **M2:** first skill set (styles and sound packs), migrated from v1 ideas.
-- **M3:** continuous improvement loop: quality checks per release, and an incident log in use.
-
-## Decisions still needed
-1. Which skill to build first in M2.
-2. Language of the new code (current code is JavaScript and Python, which is a mixed stack).
-3. License (INC-008), which still needs an owner decision.
+## Non-goals for now
+- Reusing the old library as a base.
+- Packaging beyond what is needed to run the core.
