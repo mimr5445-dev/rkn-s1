@@ -23,6 +23,12 @@
 - Visual check: five-expression sheet inspected by eye.
 - Known limits: small face at 320 px, no finger or toe detail, no lip sync, no eye direction.
 
+## Studio v2 ground contact and walk (M2c)
+- Two-bone IK for each leg. Walk cycle with planted stance feet and arcing swing feet, arms swinging beside the body.
+- Tests: IK exact on reachable targets, clamped on unreachable, no foot below the ground, planted feet do not slide, no ankle jumps, deterministic, identity unchanged. A defect that sinks the feet into the ground was caught.
+- Visual check: one walk cycle inspected by eye. Legs are near straight, feet step on the ground.
+- Known limits: knees bend outward, which reads as slightly bow-legged from the front view. A side view would read better. Hip height is fixed. No balance or body dynamics.
+
 ## Not verified
 - Whether the audio output sounds the same as the original author's version (INC-001 fix was rebuilt from call sites).
 
