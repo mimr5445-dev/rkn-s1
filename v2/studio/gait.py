@@ -1,13 +1,19 @@
-"""Ground contact and walk cycle. Uses two-bone IK for legs. Only Pose changes; identity is never touched."""
+"""Walk cycle orchestrator. Composes locomotion, balance, coordination, and leg IK.
+
+Only Pose changes; CharacterSpec identity is never touched.
+"""
 from __future__ import annotations
 
 import math
 from typing import List, Tuple
 
+from .balance import lateral_shift
+from .body_coordination import coordinate
 from .character import CharacterSpec, Pose, skeleton
+from .locomotion import foot_local, root_speed, support_at, walk_phase
 
-GROUND_Y = 0.96   # floor line, fraction of canvas height (y points down)
-HIP_Y = 0.564     # fixed hip height for a walk: legs are nearly straight (about 15 degrees of knee bend)
+GROUND_Y = 0.96
+HIP_Y = 0.564
 
 
 def _deg(rad: float) -> float:
@@ -20,69 +26,73 @@ def _wrap(deg: float) -> float:
 
 def ik_two_bone(hip: Tuple[float, float], target: Tuple[float, float],
                 l1: float, l2: float, bend: float = 1.0) -> Tuple[float, float, bool]:
-    """Solve thigh angle (absolute, from down) and knee angle (relative to thigh) so the ankle reaches target.
-
-    Returns (thigh_deg, knee_rel_deg, reachable). Out of reach, the target is clamped to the closest reachable point.
-    """
+    """Two-bone IK. Returns (thigh_deg, knee_rel_deg, reachable)."""
     vx, vy = target[0] - hip[0], target[1] - hip[1]
     d = math.hypot(vx, vy)
     lo, hi = abs(l1 - l2) + 1e-9, l1 + l2 - 1e-9
     reachable = lo <= d <= hi
     d = min(max(d, lo), hi)
-    theta_t = math.atan2(vx, vy)  # direction hip -> target, from down toward +x
+    theta_t = math.atan2(vx, vy)
     cos_a = (l1 * l1 + d * d - l2 * l2) / (2 * l1 * d)
     a = math.acos(min(1.0, max(-1.0, cos_a)))
-    thigh = theta_t + bend * a  # bend = +1 or -1 chooses which side the knee points to
+    thigh = theta_t + bend * a
     knee = (hip[0] + math.sin(thigh) * l1, hip[1] + math.cos(thigh) * l1)
     shin = math.atan2(target[0] - knee[0], target[1] - knee[1])
     return _wrap(_deg(thigh)), _wrap(_deg(shin - thigh)), reachable
 
 
-def _leg_local(phase: float, stride: float, lift: float) -> Tuple[float, float]:
-    """Foot offset (x relative to root, lift above ground) for phase in [0, 1). Continuous over the cycle."""
-    p = phase % 1.0
-    if p < 0.5:  # stance: foot moves from +stride to -stride on the ground
-        u = p / 0.5
-        return stride * (1 - 2 * u), 0.0
-    u = (p - 0.5) / 0.5  # swing: foot moves from -stride to +stride in the air
-    return -stride + 2 * stride * u, lift * math.sin(math.pi * u)
-
-
 def walk_poses(spec: CharacterSpec, n_frames: int, fps: int, cycle_s: float = 1.0,
-               stride: float = 0.045, lift: float = 0.035, arm_swing: float = 6.0,
-               start_x: float = 0.30) -> List[Pose]:
-    """A walk cycle, one Pose per frame. Stance feet stay still in world space; swing feet arc forward."""
+               stride: float = 0.045, lift: float = 0.035, arm_swing: float = 5.0,
+               start_x: float = 0.30, lateral_amount: float = 0.35,
+               lean_amp: float = 2.5, counter_amp: float = 5.0) -> List[Pose]:
+    """One Pose per frame. Stance feet stay planted in world space; body shifts over support."""
     if n_frames <= 0 or fps <= 0 or cycle_s <= 0:
         raise ValueError("n_frames, fps and cycle_s must be positive")
+
     P = spec.proportions
-    ankle_drop = P.limb_w * 0.7  # foot ellipse half height, so the foot's bottom sits on the ground
-    root_speed = 4 * stride / cycle_s  # keeps the stance foot still in world space
+    ankle_drop = P.limb_w * 0.7
+    speed = root_speed(stride, cycle_s)
+    reach = 0.97 * (P.thigh + P.shin)
     poses: List[Pose] = []
+
     for i in range(n_frames):
         t = i / fps
-        cyc = (t / cycle_s) % 1.0
-        root_x = start_x + root_speed * t
-        # per-leg targets: stride is measured from each hip; lifted feet are closer to the hip
-        leg_specs = []
-        for side, hip_off, offset, bend in (("l", -P.hip_w / 2, 0.0, -1.0), ("r", P.hip_w / 2, 0.5, 1.0)):
-            dx, lift_y = _leg_local(cyc + offset, stride, lift)
-            leg_specs.append((side, root_x + hip_off, dx, GROUND_Y - ankle_drop - lift_y, bend))
-        # pelvis bob: the hip rises just enough that both legs stay within reach (never stretched flat)
-        reach = 0.97 * (P.thigh + P.shin)
-        root_y = min([HIP_Y] + [ty - math.sqrt(reach * reach - dx * dx) for _, _, dx, ty, _ in leg_specs])
-        root = Pose(x=root_x, y=root_y)
+        phase = walk_phase(t, cycle_s)
+        support = support_at(phase)
+        coord = coordinate(phase, arm_swing=arm_swing, lean_amp=lean_amp, counter_amp=counter_amp)
+
+        base_x = start_x + speed * t
+        shift = lateral_shift(support, P.hip_w, amount=lateral_amount)
+        root_x = base_x + shift
+
+        world_targets = {}
+        for side, hip_off, offset, bend in (
+            ("l", -P.hip_w / 2, 0.0, -1.0),
+            ("r", P.hip_w / 2, 0.5, 1.0),
+        ):
+            dx, lift_y = foot_local(phase + offset, stride, lift)
+            tx = base_x + hip_off + dx
+            ty = GROUND_Y - ankle_drop - lift_y
+            world_targets[side] = (tx, ty, bend, dx)
+
+        bob_y = HIP_Y + coord.pelvis_bob
+        root_y = min([bob_y] + [
+            ty - math.sqrt(max(reach * reach - dx * dx, 0.0))
+            for _, (_, ty, _, dx) in world_targets.items()
+        ])
+
+        root = Pose(x=root_x, y=root_y, lean=coord.lean)
         J = skeleton(spec, root)
         legs = {}
-        for side, _, dx, ty, bend in leg_specs:
+        for side, (tx, ty, bend, _) in world_targets.items():
             hip = J[f"{side}_hip"]
-            target = (hip[0] + dx, ty)
-            thigh, knee, _ = ik_two_bone(hip, target, P.thigh, P.shin, bend)
+            thigh, knee, _ = ik_two_bone(hip, (tx, ty), P.thigh, P.shin, bend)
             legs[f"{side}_hip"] = thigh
             legs[f"{side}_knee"] = knee
-        swing = math.sin(2 * math.pi * cyc) * arm_swing  # arms swing beside the body, not across it
+
         poses.append(Pose(
-            x=root_x, y=root_y,
-            l_shoulder=8.0 + swing, r_shoulder=-8.0 - swing,
+            x=root_x, y=root_y, lean=coord.lean,
+            l_shoulder=coord.l_shoulder, r_shoulder=coord.r_shoulder,
             l_hip=legs["l_hip"], l_knee=legs["l_knee"],
             r_hip=legs["r_hip"], r_knee=legs["r_knee"],
         ))
