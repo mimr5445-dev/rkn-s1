@@ -44,3 +44,7 @@ Run from the repository root unless noted.
 ## 6. Credentials
 - No secrets are stored in this repository. Do not commit tokens or keys.
 - Pushing requires the owner's credentials. Use the owner's own git setup. Do not paste tokens into chat or files.
+
+## 7. The workflow skill
+- `skills/studio-workflow/SKILL.md` describes how work is done here, step by step: design, tests that can fail, visual checks backed by numbers, logs, git flow, credentials and communication.
+- Read it before the first edit. A model that follows it works the same way as the previous architect.

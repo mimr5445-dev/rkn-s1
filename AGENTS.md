@@ -15,3 +15,4 @@ Start with `HANDOFF.md`, then `project-memory/ROADMAP.md`, then `project-memory/
 7. After every milestone, add an entry to `project-memory/ACHIEVEMENTS.md` with the commit and the evidence.
 8. Every defect found, by a test or by eye, becomes an incident in `INCIDENT_INDEX.md`. Every visual problem also gets a numeric guard before the fix is merged.
 9. After every push, check the remote hash with `git ls-remote` before reporting success (L-001).
+10. Follow `skills/studio-workflow/SKILL.md` for every task. It is the working method for this repository.
