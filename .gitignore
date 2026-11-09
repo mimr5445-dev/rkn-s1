@@ -40,3 +40,6 @@ models/
 # Env
 .env
 .env.local
+
+# Studio v2 render output
+v2/examples/out/

@@ -7,6 +7,11 @@
 - Python and JS syntax checks pass for all kit files.
 - Dependencies: Node 22, ffmpeg 6.1, numpy, scipy and faster-whisper are installed. npm packages are installed.
 
+## Studio v2 (M1, in progress)
+- Character system with identity separated from pose. Consistency tests pass, including a defect injected in a temporary copy that the tests caught.
+- Visual check: three shots of one character with different poses and backgrounds, inspected by eye.
+- Known limits: simple limbs, no hands or feet detail, one hero character, no motion over time yet.
+
 ## Not verified
 - Whether the audio output sounds the same as the original author's version (INC-001 fix was rebuilt from call sites).
 
