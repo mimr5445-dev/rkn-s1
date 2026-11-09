@@ -17,6 +17,12 @@
 - Visual check: a wave clip (37 frames) rendered and inspected by eye. The arm rises, holds and returns, and the character keeps its look.
 - Known limits: no ground contact, no inverse kinematics, no expression.
 
+## Studio v2 body and expression (M2b)
+- Hands and feet drawn as shapes. Expressions: neutral, happy, sad, surprised, blink, driven by pose fields so the motion system can animate them.
+- Tests: all expressions differ and are deterministic, cheek skin colour is the same in every expression, hand and foot have the right colour, identity unchanged. A defect that changes skin with expression was caught.
+- Visual check: five-expression sheet inspected by eye.
+- Known limits: small face at 320 px, no finger or toe detail, no lip sync, no eye direction.
+
 ## Not verified
 - Whether the audio output sounds the same as the original author's version (INC-001 fix was rebuilt from call sites).
 
