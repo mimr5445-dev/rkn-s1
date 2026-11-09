@@ -8,7 +8,7 @@ Format: one entry per problem. Status is one of: fixed (on branch), open, or env
 | INC-002 | 2026-11-09 | sine() argument order differs from all callers | fixed on branch |
 | INC-003 | 2026-11-09 | Waveform name "tri" not supported | fixed on branch |
 | INC-004 | 2026-11-09 | Restore payloads truncated | superseded by DEC-001 |
-| INC-005 | 2026-11-09 | Eight kit files do not match recorded hashes | superseded by DEC-001 |
+| INC-005 | 2026-11-09 | Eight kit files do not match recorded hashes | superseded by DEC-001; checker removed in DEC-004 |
 | INC-006 | 2026-11-09 | INCOMPLETE.md declared "complete" without evidence | fixed on branch |
 | INC-007 | 2026-11-09 | Chromium cannot be installed here, so rendering is unverified | resolved (workaround, environment only) |
 | INC-008 | 2026-11-09 | No LICENSE file | open, needs owner decision |
