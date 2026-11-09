@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Build & output
+build/
+out/
+*.mp4
+*.wav
+*.mp3
+dist/
+
+# Playwright / Chromium
+.playwright/
+playwright-report/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
+
+# Project runtime
+aitrends-2d-studio/projects/*/build/
+aitrends-2d-studio/projects/*/out/
+*.log
+
+# Whisper models (large)
+*.bin
+models/
+
+# Env
+.env
+.env.local
