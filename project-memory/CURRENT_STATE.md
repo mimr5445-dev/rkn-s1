@@ -29,6 +29,13 @@
 - Visual check: one walk cycle inspected by eye. Legs are near straight, feet step on the ground.
 - Known limits: knees bend outward, which reads as slightly bow-legged from the front view. A side view would read better. Hip height is fixed. No balance or body dynamics.
 
+## Studio v2 skill loader (M3a)
+- `v2/library/<skill>/` folders with `skill.json` and a data file. Two samples: character `sami`, location `dusk-street`.
+- Loader validates manifests and data, rejects broken skills with a message that names them, rejects duplicate ids, and keeps the others loading.
+- Tests: sample loading, external skill loads with no core change, nine broken cases rejected, duplicates, determinism, same character across locations keeps its face colour. Two injected defects were caught.
+- Visual check: one character from its skill in two locations and two poses.
+- Known limits: only character and location kinds. Sounds, icons, effects and styles are next, using the same mechanism.
+
 ## Not verified
 - Whether the audio output sounds the same as the original author's version (INC-001 fix was rebuilt from call sites).
 

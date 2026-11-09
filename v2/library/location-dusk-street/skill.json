@@ -1,0 +1,8 @@
+{
+  "name": "location-dusk-street",
+  "version": "1.0.0",
+  "kind": "location",
+  "provides": ["location:dusk-street"],
+  "data": "location.json",
+  "studio": "2"
+}

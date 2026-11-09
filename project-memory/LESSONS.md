@@ -29,6 +29,7 @@ Each lesson is a rule for the next model or contributor. Each one comes from a r
 ## L-007: Shell portability
 - **What happened:** `${PIPESTATUS[0]}` fails under `/bin/sh` with "Bad substitution". (INC-018)
 - **Rule:** use `bash -c` for pipeline status, or read exit codes directly.
+- **Recurrence (INC-021):** the rule was written down and still broke the next time. Before running any command, check that it works in `/bin/sh`. Prefer plain commands that need no bashisms.
 
 ## L-008: Keep secrets out of chat and files
 - **What happened:** access tokens were pasted into the conversation. (INC-009)

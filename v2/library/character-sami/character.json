@@ -1,0 +1,10 @@
+{
+  "id": "sami",
+  "name": "Sami",
+  "proportions": {"head_r": 0.080, "neck": 0.025, "torso": 0.260, "shoulder_w": 0.150, "hip_w": 0.110,
+                  "upper_arm": 0.150, "forearm": 0.140, "thigh": 0.190, "shin": 0.190, "limb_w": 0.034,
+                  "outline_w": 0.007, "hand_len": 0.060, "foot_len": 0.085},
+  "palette": {"skin": "#e2b391", "skin_shade": "#b87f5f", "hair": "#2a1c14", "shirt": "#2f6a8f",
+              "shirt_shade": "#1c3f57", "pants": "#2b2f3d", "pants_shade": "#171a24", "shoe": "#101116",
+              "outline": "#08080c", "rim": "#ffcf8a", "eye": "#0b0b0f", "mouth": "#5a2222"}
+}
