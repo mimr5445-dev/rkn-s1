@@ -23,7 +23,7 @@
 ## Broken or open
 - Eight kit files differ from the recorded "tested version" hashes (INC-005).
 - `_restore/` payloads are truncated (INC-004).
-- No LICENSE (INC-008).
+- License: proprietary, all rights reserved (DEC-005). Owner to confirm v1 origin rights.
 
 ## Branch
 - `fix/repo-health` was merged into `main` (commit `38236f4`) and pushed.
