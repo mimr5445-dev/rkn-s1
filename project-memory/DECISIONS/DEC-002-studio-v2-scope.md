@@ -26,7 +26,7 @@ Skills extend the library over time. A new character, location, style, sound pac
 2. **Visual form of characters.** Stick figures or a richer character style?
 3. **First milestone.** Which part to build first: the character system, the sound library, or the motion system.
 4. **Language and stack.** The old code is a mix of JavaScript and Python.
-5. **License** (INC-008).
+5. **License:** decided, proprietary (DEC-005).
 
 ## Success criteria for the first milestone (M1)
 - One character is defined once and renders consistently across at least three shots with different poses and backgrounds, as proven by a test.
