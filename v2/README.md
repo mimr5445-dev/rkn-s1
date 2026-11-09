@@ -4,8 +4,8 @@ A new production system (DEC-002, DEC-003). Its strength is consistency: a chara
 
 ## Status: M1 in progress
 - Character system: identity (spec), pose, skeleton geometry, deterministic SVG rendering, PNG output.
-- Tests: `python tests/test_character.py`, `python tests/test_motion.py`, `python tests/test_body_expression.py`.
-- Examples: `python examples/render_hero_shots.py`, `python examples/render_wave_clip.py`, `python examples/render_expression_sheet.py` (output in `examples/out/`).
+- Tests: `python tests/test_character.py`, `python tests/test_motion.py`, `python tests/test_body_expression.py`, `python tests/test_gait.py`.
+- Examples: `python examples/render_hero_shots.py`, `python examples/render_wave_clip.py`, `python examples/render_expression_sheet.py`, `python examples/render_walk_clip.py` (output in `examples/out/`).
 
 ## Design
 See `docs/design/character-system.md` (at repository root).

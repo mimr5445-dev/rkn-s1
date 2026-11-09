@@ -26,7 +26,7 @@ Last updated: 2026-11-09. Owner: project owner. Architect of record: see HANDOFF
 - **Acceptance:** identity hash unchanged. Expression changes do not change the face colour. A test checks that each expression renders differently and deterministically. Visual check of a 4-expression sheet.
 - **Risk:** detail can break identity. Keep all new features in the identity spec, not in the pose.
 
-### S2. M2c: ground contact and simple foot IK
+### S2. M2c: ground contact and simple foot IK (DONE, see CURRENT_STATE)
 - **Goal:** feet stay on the floor during walks and turns.
 - **Deliverables:** two-bone IK for each leg, a ground plane, and a walk cycle.
 - **Acceptance:** foot height is never below the floor by more than a set tolerance. Stride length is constant across cycles. Visual check of a walk clip.
