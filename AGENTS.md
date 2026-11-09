@@ -1,5 +1,7 @@
 # Instructions for any model working in this repository
 
+Start with `HANDOFF.md`, then `project-memory/ROADMAP.md`.
+
 1. Read `PROJECT_CONTEXT.md`, then `project-memory/CURRENT_STATE.md`, then `project-memory/INCIDENTS/INCIDENT_INDEX.md`.
 2. Do not work on `main`. Use a branch and open a merge request. Do not merge to `main` without explicit owner approval.
 3. Every claim of success needs evidence: a test you ran, its output, and the commit.
