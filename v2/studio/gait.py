@@ -62,19 +62,26 @@ def walk_poses(spec: CharacterSpec, n_frames: int, fps: int, cycle_s: float = 1.
         t = i / fps
         cyc = (t / cycle_s) % 1.0
         root_x = start_x + root_speed * t
-        root = Pose(x=root_x, y=HIP_Y)
+        # per-leg targets: stride is measured from each hip; lifted feet are closer to the hip
+        leg_specs = []
+        for side, hip_off, offset, bend in (("l", -P.hip_w / 2, 0.0, -1.0), ("r", P.hip_w / 2, 0.5, 1.0)):
+            dx, lift_y = _leg_local(cyc + offset, stride, lift)
+            leg_specs.append((side, root_x + hip_off, dx, GROUND_Y - ankle_drop - lift_y, bend))
+        # pelvis bob: the hip rises just enough that both legs stay within reach (never stretched flat)
+        reach = 0.97 * (P.thigh + P.shin)
+        root_y = min([HIP_Y] + [ty - math.sqrt(reach * reach - dx * dx) for _, _, dx, ty, _ in leg_specs])
+        root = Pose(x=root_x, y=root_y)
         J = skeleton(spec, root)
         legs = {}
-        for side, offset, bend in (("l", 0.0, -1.0), ("r", 0.5, 1.0)):  # knees bend outward
-            dx, lift_y = _leg_local(cyc + offset, stride, lift)
+        for side, _, dx, ty, bend in leg_specs:
             hip = J[f"{side}_hip"]
-            target = (hip[0] + dx, GROUND_Y - ankle_drop - lift_y)  # stride is measured from each hip
+            target = (hip[0] + dx, ty)
             thigh, knee, _ = ik_two_bone(hip, target, P.thigh, P.shin, bend)
             legs[f"{side}_hip"] = thigh
             legs[f"{side}_knee"] = knee
         swing = math.sin(2 * math.pi * cyc) * arm_swing  # arms swing beside the body, not across it
         poses.append(Pose(
-            x=root_x, y=HIP_Y,
+            x=root_x, y=root_y,
             l_shoulder=8.0 + swing, r_shoulder=-8.0 - swing,
             l_hip=legs["l_hip"], l_knee=legs["l_knee"],
             r_hip=legs["r_hip"], r_knee=legs["r_knee"],

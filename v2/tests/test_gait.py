@@ -86,6 +86,28 @@ h = HERO.identity_hash()
 _ = walk_poses(HERO, 10, 24)
 check(HERO.identity_hash() == h, "walk changed the identity")
 
+# 6b. legs stay near straight: the knee never bends more than 40 degrees (interior angle above 140)
+import math as _m
+min_knee = 180.0
+for pose in poses:
+    J = skeleton(HERO, pose)
+    for side in ("l", "r"):
+        hip, kn, an = J[side + "_hip"], J[side + "_kn"], J[side + "_an"]
+        d1 = _m.dist(hip, kn)
+        d2 = _m.dist(kn, an)
+        dh = _m.dist(hip, an)
+        c = (d1 * d1 + d2 * d2 - dh * dh) / (2 * d1 * d2)
+        min_knee = min(min_knee, _m.degrees(_m.acos(max(-1.0, min(1.0, c)))))
+check(min_knee > 140.0, f"knee bends too far during the walk (interior angle {min_knee:.1f}, need > 140)")
+
+# 6c. arms swing beside the body: no wrist crosses the torso centre line
+for pose in poses:
+    J = skeleton(HERO, pose)
+    centre_x = (J["l_sh"][0] + J["r_sh"][0]) / 2
+    if not (J["l_wr"][0] < centre_x and J["r_wr"][0] > centre_x):
+        check(False, "a wrist crossed the body centre line during the walk")
+        break
+
 # 7. invalid input is rejected
 try:
     walk_poses(HERO, 0, 24)
