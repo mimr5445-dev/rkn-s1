@@ -1,6 +1,6 @@
 # Roadmap: Studio v2
 
-Last updated: 2026-11-09. Owner: project owner. Architect of record: see HANDOFF.md.
+Last updated: 2026-11-09 (S4 completed). Owner: project owner. Architect of record: see HANDOFF.md.
 
 ## Where we are
 | Stage | Status | Evidence |
@@ -8,6 +8,8 @@ Last updated: 2026-11-09. Owner: project owner. Architect of record: see HANDOFF
 | M0: diagnosis, memory, v1 audio fixes, v1 render verified | done | INC-001 to INC-009, DEC-001 |
 | M1: character system (identity separate from pose, deterministic SVG to PNG) | done | `v2/tests/test_character.py`, hero contact sheet |
 | M2a: keyframes, easing, spring follow-through | done | `v2/tests/test_motion.py`, wave clip |
+| M2b / M2c / M3a | done | see CURRENT_STATE and ACHIEVEMENTS |
+| S4: sound design spec | done | `docs/design/sound-system.md` |
 
 ## Principles that do not change
 1. Consistency first: a character never changes between shots. Identity is hashed and tested.
@@ -37,10 +39,10 @@ Last updated: 2026-11-09. Owner: project owner. Architect of record: see HANDOFF
 - **Acceptance:** adding a skill requires no edit to `studio/`. A test proves this by loading a skill from outside the core. A broken manifest is rejected with a clear error.
 - **Why now:** every later item in the library depends on this.
 
-### S4. Sound design spec (design only, no code yet)
+### S4. Sound design spec (DONE)
 - **Goal:** decide what "professional, not harsh" means in numbers before building sounds.
-- **Deliverables:** `docs/design/sound-system.md` with loudness target (for example integrated loudness around -16 LUFS for web), peak ceiling, maximum allowed energy above 6 kHz for effects, and a rule for music ducking under voice.
-- **Acceptance:** the spec gives measurable limits that a test can check later.
+- **Deliverables:** `docs/design/sound-system.md` with loudness target (−14 LUFS ± 1), true-peak ceiling (−1.0 dBTP), high-frequency energy limits above 6 kHz, relative levels and ducking rules for music / ambience / SFX under voice.
+- **Acceptance:** the spec gives measurable limits that a test can check later. Met.
 
 ---
 
