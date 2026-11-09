@@ -1,4 +1,4 @@
-# ARCHIVED: v1 (aiTrends 2D Studio, version 0.1.0)
+# ARCHIVED: v1 (RKN-S1 Studio, version 0.1.0)
 
 This folder is read-only history, as decided in DEC-004. Do not add features or fix bugs here.
 New work happens in `v2/`. See `HANDOFF.md` at the repository root.

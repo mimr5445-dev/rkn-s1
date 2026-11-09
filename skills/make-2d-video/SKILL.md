@@ -1,7 +1,7 @@
 ---
 name: make-2d-video
 description: >
-  This skill should be used when the user wants a narrated animated video in the aiTrends 2D style
+  This skill should be used when the user wants a narrated animated video in the RKN-S1 2D style
   (cinematic stick figures with rim light, moody 2.5D sets, giant face close-ups, freeze-frames,
   data overlays, blueprint diagrams and low-poly 3D shots), e.g. "make a 2D video from this voiceover",
   "animate my script", "turn this narration into a stick figure video", "make a What If video",
@@ -10,15 +10,15 @@ description: >
   final MP4 in 16:9 or 9:16 at 720p to 4K.
 metadata:
   version: "0.1.0"
-  author: aiTrends
+  author: RKN-S1
 ---
 
-# aiTrends 2D Studio: full video pipeline
+# RKN-S1 Studio: full video pipeline
 
 Turn a voiceover (plus an optional script) into a finished MP4 where every frame is drawn by code (HTML canvas + Three.js), captured frame by frame in headless Chromium and encoded with ffmpeg. No image or video generation models are used, so characters stay consistent and text stays crisp. Invent the visuals fresh for every script; only the style is fixed.
 
 **Bundled resources (this skill's base directory):**
-- `kit/`: the tested studio (renderer, engine, tools, audio, the `examples/reaction-time` reference project). Install it into the workspace as `aitrends-2d-studio/` (see `references/install.md`).
+- `kit/`: the tested studio (renderer, engine, tools, audio, the `examples/reaction-time` reference project). Install it into the workspace as `rkn-s1-studio/` (see `references/install.md`).
 - `references/install.md`: install, dependency table, doctor, self-test.
 - `references/style-bible.md`: **the look** (characters, sets, light, camera, editing, graphics, 9:16 rules, don'ts). Read it fully before designing any shot.
 - `references/story-breakdown.md`: writing `story/bible.md` and `story/shots.json`, plus pacing rules.
@@ -34,7 +34,7 @@ Stage commands from this plugin re-run one stage: `/new-video` (stages 1–4), `
 3. **Show what is said, literally and specifically.** Abstract lines become visual metaphors, diagrams or close-up reactions.
 4. **Draft, look, fix, then render.** Open contact sheets and stills yourself (read the PNGs) before any full render. Rendering is slow; looking is fast.
 5. **Three user checkpoints:** setup choices, style choice from rendered samples, and the preview before the final render. If the user is away, take the defaults, state what was assumed, and continue.
-6. **Files are the truth.** Each video lives in `aitrends-2d-studio/projects/<slug>/`, and `story/shots.json` owns all timing.
+6. **Files are the truth.** Each video lives in `rkn-s1-studio/projects/<slug>/`, and `story/shots.json` owns all timing.
 
 ## Stage 1: Intake
 Ask once (AskUserQuestion when available) for:
@@ -49,10 +49,10 @@ Ask once (AskUserQuestion when available) for:
 Don't ask about style yet. Defaults: 16:9, 1080p, 24 fps, generated music + SFX, style `dusk`.
 
 ## Stage 2: Install or check the studio
-Follow `references/install.md`: copy `kit/` to `aitrends-2d-studio/` in the workspace (skip if already present), install dependencies, run `python tools/verify_kit.py` and `python tools/doctor.py`, then run the example self-test. Report what was installed in one short list.
+Follow `references/install.md`: copy `kit/` to `rkn-s1-studio/` in the workspace (skip if already present), install dependencies, run `python tools/doctor.py`, then run the example self-test. Report what was installed in one short list.
 
 ## Stage 3: Project + timeline
-Run inside `aitrends-2d-studio/`. Use `python3` where `python` isn't Python 3.
+Run inside `rkn-s1-studio/`. Use `python3` where `python` isn't Python 3.
 ```bash
 python tools/new_project.py --name <slug> --voice "<voiceover path>" [--script "<script path>"] --aspect 16:9 --resolution 1080p --title "<title>" [--captions]
 ```

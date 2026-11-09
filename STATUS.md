@@ -10,7 +10,7 @@ This file replaces the earlier INCOMPLETE.md, which said "complete" without evid
 - `tools/doctor.py` passes for Node, ffmpeg, npm packages, numpy, scipy and faster-whisper.
 
 ## Known open items
-- `tools/verify_kit.py` reports 8 files that differ from the recorded "tested version" (INC-005).
+- `verify_kit.py` was removed (DEC-004). INC-005 is superseded by DEC-001.
   The reference version is not in this repository, so this cannot be resolved from here.
 - Playwright Chromium is not installed, so the render path (`render.mjs`) is not verified (INC-007).
 - `_restore/` payloads are truncated and cannot restore anything (INC-004).
