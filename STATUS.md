@@ -1,25 +1,19 @@
-# الحالة: مكتمل ✓
+# Repository status (verified 2026-11-09)
 
-جميع ملفات المحرك والصوت والأمثلة والوثائق مرفوعة بالكامل.
+This file replaces the earlier INCOMPLETE.md, which said "complete" without evidence.
 
-## Engine (7/7)
-- core.js, player.js, styles.js, ui2d.js, fx2d.js, three-kit.js, **rig2d.js**
+## What was verified
+- All 11 Python files in `kit/` compile.
+- All 14 JS/MJS files pass `node --check`.
+- Every named import between JS modules resolves to an export (`tests/check_js_imports.py`).
+- The audio layer now imports and generates all 35 sound effects and 11 music moods (`tests/test_audio.py`).
+- `tools/doctor.py` passes for Node, ffmpeg, npm packages, numpy, scipy and faster-whisper.
 
-## Audio (4/4)
-- dsp.py, mix.py, music.py, **sfx.py**
+## Known open items
+- `tools/verify_kit.py` reports 8 files that differ from the recorded "tested version" (INC-005).
+  The reference version is not in this repository, so this cannot be resolved from here.
+- Playwright Chromium is not installed, so the render path (`render.mjs`) is not verified (INC-007).
+- `_restore/` payloads are truncated and cannot restore anything (INC-004).
+- No LICENSE file. This needs an owner decision (INC-008).
 
-## Renderer, tools, examples, skills, references
-كلها موجودة.
-
-المستودع: https://github.com/mimr5445-dev/rkn-s1
-
-## التشغيل السريع
-```bash
-git clone https://github.com/mimr5445-dev/rkn-s1.git
-cd rkn-s1
-cp -r skills/make-2d-video/kit aitrends-2d-studio
-cd aitrends-2d-studio
-npm install
-npx playwright install chromium
-python -m pip install numpy scipy faster-whisper
-```
+Details and root causes are in `project-memory/INCIDENTS/INCIDENT_INDEX.md`.

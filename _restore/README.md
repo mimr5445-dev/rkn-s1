@@ -1,12 +1,15 @@
-# Restore missing kit files
+# _restore — status: NOT usable as a restore source
 
-After cloning, if engine/audio files are incomplete:
+The two payloads in this folder are truncated. Each `.b64` file is exactly 2500 characters,
+and the decoded archive ends before the gzip end-of-stream marker, so extraction fails with
+`EOFError`. Running the old restore script would fail and write nothing.
 
-```bash
-python scripts/restore_missing.py
-```
+Kept on purpose: the files are history and are not deleted. The source of truth for the kit is
+`skills/make-2d-video/kit/` on `main`.
 
-This extracts:
-- engine/fx2d.js, ui2d.js, three-kit.js, rig2d.js
-- audio/music.py, sfx.py
-- references/style-bible.md
+Check the state:
+
+    python scripts/restore_missing.py          # validation only, writes nothing
+
+Tracked as INC-004 in `project-memory/INCIDENTS/INCIDENT_INDEX.md`. To restore these files,
+re-upload complete payloads (the full base64 must be intact) and re-run the validation.
