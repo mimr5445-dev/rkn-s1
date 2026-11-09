@@ -14,6 +14,6 @@ This file replaces the earlier INCOMPLETE.md, which said "complete" without evid
   The reference version is not in this repository, so this cannot be resolved from here.
 - Playwright Chromium is not installed, so the render path (`render.mjs`) is not verified (INC-007).
 - `_restore/` payloads are truncated and cannot restore anything (INC-004).
-- No LICENSE file. This needs an owner decision (INC-008).
+- License: proprietary, all rights reserved (LICENSE, DEC-005). The v1 origin rights still need owner confirmation.
 
 Details and root causes are in `project-memory/INCIDENTS/INCIDENT_INDEX.md`.
