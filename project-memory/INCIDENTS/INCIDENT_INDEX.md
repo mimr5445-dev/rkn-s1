@@ -13,6 +13,17 @@ Format: one entry per problem. Status is one of: fixed (on branch), open, or env
 | INC-007 | 2026-11-09 | Chromium cannot be installed here, so rendering is unverified | resolved (workaround, environment only) |
 | INC-008 | 2026-11-09 | No LICENSE file | fixed: proprietary license (DEC-005) |
 | INC-009 | 2026-11-09 | Access tokens pasted into the chat | open, needs owner action |
+| INC-010 | 2026-11-09 | Walk stride measured from body centre, not from each hip | fixed (M2c) |
+| INC-011 | 2026-11-09 | Knee bent over 55 degrees mid-swing (lifted foot too close to hip) | fixed by pelvis bob (M2c) |
+| INC-012 | 2026-11-09 | Arms swung across the torso during the walk | fixed (M2c), guarded by test |
+| INC-013 | 2026-11-09 | Hip too low, figure looked crouched | fixed (M2c), guarded by knee test |
+| INC-014 | 2026-11-09 | Gait test crashed on empty max() instead of reporting a failure | fixed |
+| INC-015 | 2026-11-09 | Negative test used a defect below tolerance and did not fail | fixed |
+| INC-016 | 2026-11-09 | Hair cap invisible after the first render (layer order) | fixed, no numeric guard yet (open gap) |
+| INC-017 | 2026-11-09 | Merge reported complete before the push reached the remote | fixed, rule L-001 |
+| INC-018 | 2026-11-09 | PIPESTATUS[0] unsupported in /bin/sh | fixed, rule L-007 |
+| INC-019 | 2026-11-09 | Walk checked on 12 frames only; full-cycle problems were missed | fixed, rule L-002 |
+| INC-020 | 2026-11-09 | Owner's ambiguous reply "1 2" was read as one option and recorded | corrected in DEC-002, rule L-006 |
 
 ---
 
@@ -69,3 +80,17 @@ Format: one entry per problem. Status is one of: fixed (on branch), open, or env
 - **Symptom:** the README says "license to be decided".
 - **Impact:** without a license, others have no right to use or modify the code.
 - **Status:** needs an owner decision. This was not decided here.
+
+## INC-010 to INC-020 (details)
+
+- **INC-010 (stride reference):** legs reached too far because each foot's stride was measured from the body centre rather than from its own hip. Root cause: wrong reference point in the design. Found by measuring knee angles. Fix: stride measured from each hip. Guard: knee-angle test (test_gait 6b).
+- **INC-011 (knee bend mid-swing):** when a foot lifts, its distance to the hip shrinks and the knee bends sharply (worst 125 degrees over a full cycle). Root cause: a fixed hip height. Found by the new guard on the full 48-frame cycle. Fix: pelvis bob, so the hip rises just enough to keep both legs within reach. Guard: knee interior angle above 140 degrees. Negative check: removing the bob makes the guard fail.
+- **INC-012 (arms across the torso):** a positive swing angle moved the left arm inward. Found by eye. Fix: arms swing around a rest pose of plus or minus 8 degrees, with amplitude 6. Guard: wrists stay on their own side of the body centre (test_gait 6c).
+- **INC-013 (crouched look):** the hip height was too low, so the knee bend was large. Found by eye. Fix: hip height 0.564. Guard: knee test.
+- **INC-014 (test crash):** a max() on an empty list raised an exception instead of a failure message. Found when injecting a defect. Fix: default value and an explicit check.
+- **INC-015 (weak negative test):** the first injected skin defect was 3 units, below the 24-unit tolerance. Found on the first injection. Fix: a lean-dependent defect of 28 units, which the test catches.
+- **INC-016 (hair layering):** the hair cap was hidden by the skin circle. Found by eye and fixed by changing the layer order. There is no numeric guard for the hair yet. Open gap for M3.
+- **INC-017 (premature report):** a merge was reported as done before the push succeeded. Found and corrected when the remote was checked. Rule L-001.
+- **INC-018 (shell):** PIPESTATUS[0] is not valid in /bin/sh. Found on first use. Rule L-007.
+- **INC-019 (sampling):** the walk was checked on 12 frames, and the knee problem appeared only on the full 48-frame cycle. Rule L-002.
+- **INC-020 (ambiguous answer):** the owner's "1 2" reply was read as one option, and DEC-002 was written on that reading. The owner clarified the choice. Rule L-006.

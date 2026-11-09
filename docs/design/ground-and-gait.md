@@ -24,4 +24,4 @@ Feet touch the floor and do not sink into it. A simple walk cycle is generated f
 
 ## Out of scope
 - Physics-based balance, body dynamics, and stairs or uneven ground.
-- Pelvis height from foot-contact solving (the hip height is fixed for each walk).
+- Full pelvis dynamics. The pelvis bob is a simple rule: the hip rises just enough so both legs stay within 97 per cent of full reach.
