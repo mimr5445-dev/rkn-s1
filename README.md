@@ -124,4 +124,6 @@ node render.mjs --project examples/reaction-time --sheet --scale 0.3
 
 ## الترخيص | License
 
-قيد التحديد — سيتم إضافة ملف LICENSE قريباً.
+كل الحقوق محفوظة. لا يحق لأحد الاستخدام أو النسخ أو التعديل أو التوزيع إلا بإذن كتابي مسبق من صاحب الحقوق. انظر ملف `LICENSE`.
+
+All rights reserved. No use, copying, modification, or distribution without prior written permission. See `LICENSE`.

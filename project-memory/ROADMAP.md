@@ -81,7 +81,7 @@ Last updated: 2026-11-09. Owner: project owner. Architect of record: see HANDOFF
 ---
 
 ## Open decisions (owner)
-1. **License** (INC-008). Blocks any public release.
+1. ~~License~~ **Decided (DEC-005): proprietary, all rights reserved.** Owner to confirm the v1 origin question in DEC-005.
 2. ~~Retire or keep v1.~~ **Decided (DEC-004):** archived as read-only history.
 3. ~~Remove `verify_kit.py`.~~ **Decided and done (DEC-004).**
 4. **Token rotation** (INC-009). Owner action.
