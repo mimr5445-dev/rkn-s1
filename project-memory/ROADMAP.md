@@ -31,7 +31,7 @@ Last updated: 2026-11-09. Owner: project owner. Architect of record: see HANDOFF
 - **Deliverables:** two-bone IK for each leg, a ground plane, and a walk cycle.
 - **Acceptance:** foot height is never below the floor by more than a set tolerance. Stride length is constant across cycles. Visual check of a walk clip.
 
-### S3. M3a: skill loader (design first)
+### S3. M3a: skill loader (DONE, see CURRENT_STATE)
 - **Goal:** new characters, locations, styles, and sound packs are added as separate skills, without changing core code.
 - **Deliverables:** a skill manifest (name, version, provides, requires), a loader that validates it, and a registry. Two sample skills: one character, one location.
 - **Acceptance:** adding a skill requires no edit to `studio/`. A test proves this by loading a skill from outside the core. A broken manifest is rejected with a clear error.

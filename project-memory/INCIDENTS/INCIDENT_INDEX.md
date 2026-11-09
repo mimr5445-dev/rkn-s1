@@ -24,6 +24,8 @@ Format: one entry per problem. Status is one of: fixed (on branch), open, or env
 | INC-018 | 2026-11-09 | PIPESTATUS[0] unsupported in /bin/sh | fixed, rule L-007 |
 | INC-019 | 2026-11-09 | Walk checked on 12 frames only; full-cycle problems were missed | fixed, rule L-002 |
 | INC-020 | 2026-11-09 | Owner's ambiguous reply "1 2" was read as one option and recorded | corrected in DEC-002, rule L-006 |
+| INC-021 | 2026-11-09 | PIPESTATUS[0] used again in /bin/sh after being logged (INC-018 recurred) | fixed; rule L-007 strengthened |
+| INC-022 | 2026-11-09 | Registry test raised a traceback instead of a named failure when the loader raised | fixed by safe_discover in the test |
 
 ---
 
@@ -94,3 +96,6 @@ Format: one entry per problem. Status is one of: fixed (on branch), open, or env
 - **INC-018 (shell):** PIPESTATUS[0] is not valid in /bin/sh. Found on first use. Rule L-007.
 - **INC-019 (sampling):** the walk was checked on 12 frames, and the knee problem appeared only on the full 48-frame cycle. Rule L-002.
 - **INC-020 (ambiguous answer):** the owner's "1 2" reply was read as one option, and DEC-002 was written on that reading. The owner clarified the choice. Rule L-006.
+
+- **INC-021 (recurrence of INC-018):** I used `${PIPESTATUS[0]}` in a shell command run by `/bin/sh`, which failed with "Bad substitution". The lesson was already recorded, so this is a process failure. Fix: check exit codes directly. Guard: the skill workflow (section 6) now uses plain commands. Lesson L-007 is stronger: check each command you write for `/bin/sh` compatibility before running it.
+- **INC-022 (loader error as traceback):** when the loader raised an exception, the test run crashed with a traceback instead of printing a named failure. Found by injecting a defect. Fix: `safe_discover` in the test turns any exception into a named failure.

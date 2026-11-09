@@ -1,0 +1,8 @@
+{
+  "name": "character-sami",
+  "version": "1.0.0",
+  "kind": "character",
+  "provides": ["character:sami"],
+  "data": "character.json",
+  "studio": "2"
+}

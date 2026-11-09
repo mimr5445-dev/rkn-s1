@@ -20,3 +20,4 @@ Add a new entry for every milestone before the work is merged.
 | 2026-11-09 | DEC-006 | Rename to RKN-S1, stale instructions fixed | 11138eb | DEC-006 |
 | 2026-11-09 | M2b: body and expression | Hands, feet, five expressions | c290b51 | tests/test_body_expression.py, expression sheet |
 | 2026-11-09 | M2c: ground and walk | Two-bone IK, walk with pelvis bob, guards on knee and arms | 2b0c76f (plus the guards and pelvis bob in the next commit) | tests/test_gait.py, walk sheet |
+| 2026-11-09 | M3a: skill loader | Skills validated and loaded from folders; two sample skills (character, location); a skill added from outside the core loads with no core change | (merge of feat/v2-skill-loader) | tests/test_registry.py, skills_sheet.png |
