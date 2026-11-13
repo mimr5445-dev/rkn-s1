@@ -36,6 +36,12 @@
 - Visual check: one character from its skill in two locations and two poses.
 - Known limits: only character and location kinds. Sounds, icons, effects and styles are next, using the same mechanism.
 
+## Studio v2 inertial transitions
+- Clip-to-clip inertialization (Bollo, GDC 2018). The incoming clip plays at full weight. Only the pose error and the velocity error decay, as a closed-form damped spring, not an Euler step.
+- Legs, root and face are critically damped, so a foot cannot bounce. Arms and lean follow through slightly underdamped.
+- Tests: a 240°/s shoulder survives the cut, cubic easing of the same pair drops that rate below 5°/s, a critical offset does not overshoot, the offset settles, 170° to −170° is the short arc, a rate is not wrapped, deterministic, identity unchanged.
+- `studio/motion.py` is unchanged. This is a transition layer on top of the timeline sampler. See `docs/design/inertialization.md`.
+
 ## Not verified
 - Whether the audio output sounds the same as the original author's version (INC-001 fix was rebuilt from call sites).
 
